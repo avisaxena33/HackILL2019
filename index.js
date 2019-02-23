@@ -1,8 +1,25 @@
 var express = require('express');
 var socket = require('socket.io');
 
-var numSet = ["1","2","3","4","5","6","7","8","9"];
-var opSet = ["X","+","-","/"];
+var easyNumSet = [];
+var medNumSet = [];
+var hardNumSet = [];
+
+for (var i = -9; i < 10; i++)
+{
+    easyNumSet.push(i);
+    medNumSet.push(i);
+}
+
+for (var i = -99; i < 100; i++)
+{
+    hardNumSet.push(i);
+}
+
+var easyOpSet = ["+","-"];
+var medOpSet = ["X", "+", "-", "/"];
+var hardOpSet = ["X", "+", "-"];
+
 var problem1;
 var problem2;
 var problem3;
@@ -56,35 +73,37 @@ io.on("connection", function(socket)
 function genProblem()
 {
     pSet = [];
-    var op1 =  numSet[Math.floor(Math.random()*(8-0+1)+0)];
-    var op2 =  numSet[Math.floor(Math.random()*(8-0+1)+0)];
-    var oper = opSet[Math.floor(Math.random()*(3-0+1)+0)];
-    problem1 = op1 + oper + op2;
-
-    if (oper == "X")
-    {
-        answer1 = parseInt(op1) * parseInt(op2);
-    }
-
-    else if (oper == "+")
+    var op1 =  easyNumSet[Math.floor(Math.random()*(18-0+1)+0)];
+    var op2 =  easyNumSet[Math.floor(Math.random()*(18-0+1)+0)];
+    var oper = easyOpSet[Math.floor(Math.random()*(1-0+1)+0)];
+    console.log(op1, op2, oper);
+    if (oper == "+")
     {
         answer1 = parseInt(op1) + parseInt(op2);
     }
 
-    else if (oper == "-")
+    else (oper == "-")
     {
         answer1 = parseInt(op1) - parseInt(op2)
     }
-
-    else
+    console.log(answer1);
+    setTimeout(123);
+    if (parseInt(op1) < 0)
     {
-        answer1 = parseInt(op1) / parseInt(op2);
+        op1 = "(" + op1 + ")";
     }
 
-    var op1 =  numSet[Math.floor(Math.random()*(8-0+1)+0)];
-    var op2 =  numSet[Math.floor(Math.random()*(8-0+1)+0)];
-    var oper = opSet[Math.floor(Math.random()*(3-0+1)+0)];
-    problem2 = op1 + oper + op2;
+    if (parseInt(op2) < 0)
+    {
+        op2 = "(" + op2 + ")";
+    }
+
+    problem1 = op1 + oper + op2;
+
+
+    var op1 =  medNumSet[Math.floor(Math.random()*(18-0+1)+0)];
+    var op2 =  medNumSet[Math.floor(Math.random()*(18-0+1)+0)];
+    var oper = medOpSet[Math.floor(Math.random()*(3-0+1)+0)];
 
     if (oper == "X")
     {
@@ -104,12 +123,29 @@ function genProblem()
     else
     {
         answer2 = parseInt(op1) / parseInt(op2);
+        while (answer2 != Math.ceil(answer2))
+        {
+            var op1 =  medNumSet[Math.floor(Math.random()*(18-0+1)+0)];
+            var op2 =  medNumSet[Math.floor(Math.random()*(18-0+1)+0)];
+            answer2 = parseInt(op1) / parseInt(op2);
+        }
+    }
+    if (parseInt(op1) < 0)
+    {
+        op1 = "(" + op1 + ")";
     }
 
-    var op1 =  numSet[Math.floor(Math.random()*(8-0+1)+0)];
-    var op2 =  numSet[Math.floor(Math.random()*(8-0+1)+0)];
-    var oper = opSet[Math.floor(Math.random()*(3-0+1)+0)];
-    problem3 = op1 + oper + op2;
+    if (parseInt(op2) < 0)
+    {
+        op2 = "(" + op2 + ")";
+    }
+
+    problem2 = op1 + oper + op2;
+
+
+    var op1 =  hardNumSet[Math.floor(Math.random()*(198-0+1)+0)];
+    var op2 =  hardNumSet[Math.floor(Math.random()*(198-0+1)+0)];
+    var oper = hardOpSet[Math.floor(Math.random()*(2-0+1)+0)];
 
     if (oper == "X")
     {
@@ -126,10 +162,18 @@ function genProblem()
         answer3 = parseInt(op1) - parseInt(op2)
     }
 
-    else
+    if (parseInt(op1) < 0)
     {
-        answer3 = parseInt(op1) / parseInt(op2);
+        op1 = "(" + op1 + ")";
     }
+
+    if (parseInt(op2) < 0)
+    {
+        op2 = "(" + op2 + ")";
+    }
+
+    problem3 = op1 + oper + op2;
+
 
     pSet.push(problem1, answer1, problem2, answer2, problem3, answer3);
     console.log(pSet);

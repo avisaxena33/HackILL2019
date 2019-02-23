@@ -1,21 +1,6 @@
 .navbar-giveFat{
-  height: 100px;
+  height: 10%;
 }
-
-.progress-offset-top{
-  position: relative;
-  left: 500px;
-  top: 40px;
-  width: 300px;
-}
-
-.progress-offset-bot{
-  position: relative;
-  top: 800px;
-}
-.LogoContainer
-
-
 .mfront {
   z-index: 1000;
 }

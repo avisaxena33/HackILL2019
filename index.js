@@ -33,7 +33,7 @@ io.on("connection", function(socket)
     {
         playerName = data;
         genProblem();
-        setTimeout(yeet, 70);
+        setTimeout(yeet, 200);
         function yeet()
         {
             io.sockets.emit("firstSet", playerName);
@@ -45,10 +45,6 @@ io.on("connection", function(socket)
     socket.on("newProb", function()
     {
         genProblem();
-<<<<<<< HEAD
-=======
-
->>>>>>> c587733929af6072d183f82884f16729cb570200
         setTimeout(bigGay, 1000);
         function bigGay()
         {

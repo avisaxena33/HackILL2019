@@ -13,6 +13,22 @@ var ans2;
 var ans3;
 var right;
 
+//will move to game.js once I figure it out
+
+var health = 100; //starting healthbar
+var count = -5;   //head start that player gets
+var point = 0;   //points accumulated by player starts at 0
+var hard = 8;     //hard problem value
+var medium = 5;    //medium problem value
+var easy = 3;      //easy problem value
+var speed = 0.1;   //base speed, 0.1 increase per tenth of a second
+var speed_multiplier = 1.2; //speed increase multiplier
+var damage_multiplier = 1.5; //damage modifier
+var damage_tick = 1;       //base damage at beginning of the game
+var zone_freq = 10;        //speed up / damage increase frequency in seconds and runtime
+var zone = 1;              // zone number
+
+
 countdown();
 
 document.addEventListener("DOMContentLoaded", function()
@@ -53,17 +69,17 @@ socket.on("firstSet", function(data)
 socket.on("firstProblems", function(data)
 {
     pSet = data.slice();
-    ques1.innerHTML = pSet[0]
-    ques2.innerHTML = pSet[2]
-    ques3.innerHTML = pSet[4]
+    ques1.innerHTML = pSet[0];
+    ques2.innerHTML = pSet[2];
+    ques3.innerHTML = pSet[4];
 });
 
 socket.on("newProblems", function(data)
 {
     pSet = data.slice();
-    ques1.innerHTML = pSet[0]
-    ques2.innerHTML = pSet[2]
-    ques3.innerHTML = pSet[4]
+    ques1.innerHTML = pSet[0];
+    ques2.innerHTML = pSet[2];
+    ques3.innerHTML = pSet[4];
     ans1 = document.getElementById("answer1").value = "";
     ans2 = document.getElementById("answer2").value = "";
     ans3 = document.getElementById("answer3").value = "";
@@ -82,14 +98,14 @@ function checker()
         if (ans1 == pSet[1])
         {
             right = true;
-            count = count + 3;
+            point = point + easy;
         }
 
         else
         {
             right = false;
-            count = count - 10;
-            health = health - 8;
+            point = point - Math.ceil(easy);
+            health = health - easy;
 
         }
     }
@@ -118,14 +134,14 @@ if(!(ans2 == "" || ans2.length == 0 || ans2 == null))
     if (ans2 == pSet[3])
     {
         right = true;
-        count = count + 3;
+        point = point + medium;
     }
 
     else
     {
         right = false;
-        count = count - 10;
-        health = health - 8;
+        point = point - Math.ceil(medium/2);
+        health = health - medium;
     }
 }
 if (right == true)
@@ -149,14 +165,14 @@ function checker3()
         if(ans3 == pSet[5])
         {
             right = true;
-            count = count + 3;
+            point = point + hard;
         }
 
         else
         {
             right = false;
-            count = count - 10;
-            health = health - 8;
+            point = point - Math.ceil(hard/2);
+            health = health - hard;
         }
     }
     if (right == true)
@@ -182,25 +198,69 @@ function updateName(newname) {
   document.getElementById('namebar').innerHTML = "Hello " + newname;
 }
 
-var health = 100;
 
 function sethealth(percent) {
   health = percent;
 }
 
-function settimer(percent) {
+function setcount(percent) {
   count = percent;
 }
-var count = 100;  //total count
-var speed = count/1000; //rate at which it decreases
+
+function setpoint(percent) {
+  point = percent;
+}
+
+var in_zone = 0;
+function updateUser() {
+  if(count > point){
+    if(in_zone >= 15){
+      health = health - Math.ceil(damage_tick*Math.pow(damage_multiplier, zone));
+      in_zone = 0;
+    }else{
+      in_zone++;
+    }
+  }
+  if(health < 0){
+    health = 0;
+  }
+  $('#healthbar1').width(health +"%");
+  $('#healthbar1').html(health +" \\ 100 HP");
+  $('#points').width(point + "%");
+  $('#points').html(point + "");
+}
+
+function updateTime() {
+  $('#timer').width(count+"%");
+  $('#timer').html(Math.ceil(count + 1) +"");
+}
+
+function updateCount() {
+  var trueSpeed = speed*Math.pow(speed_multiplier, zone);
+  count = count + trueSpeed;
+}
+
+var y = 1; //couldn't figure out a better way to count
 function countdown() {
   var x = setInterval(function() {
-    count = count - speed;
-    $('#timer').width(count+"%");
-    $('#timer').html(Math.floor(count + 1) +" \\ 100");
-    $('#healthbar1').width(health +"%");
-    $('#healthbar1').html(health +" \\ 100 HP");
-    if(count < 0){
+    updateCount();
+    if(count > 0)
+    {
+      updateTime();
+      if(Math.floor(y) % zone_freq == 0){
+        zone = zone + 1;
+        y = 1;
+        document.getElementById("zone").innerHTML = zone + "";
+      }
+      y = y + 0.1;
+    }else{
+      $('#timer').width(0 +"%");
+      $('#timer').html(0 + "");
+    }
+    updateUser();
+
+    //will add win condition where you beat an AI
+    if(health <= 0){
         clearInterval(x);
         console.log("You lose!");
     }

@@ -13,6 +13,8 @@ var ans2;
 var ans3;
 var right;
 
+countdown();
+
 document.addEventListener("DOMContentLoaded", function()
 {
     nametag = document.getElementById("namebar");
@@ -80,11 +82,15 @@ function checker()
         if (ans1 == pSet[1])
         {
             right = true;
+            count = count + 3;
         }
 
         else
         {
             right = false;
+            count = count - 10;
+            health = health - 8;
+
         }
     }
 
@@ -112,11 +118,14 @@ if(!(ans2 == "" || ans2.length == 0 || ans2 == null))
     if (ans2 == pSet[3])
     {
         right = true;
+        count = count + 3;
     }
 
     else
     {
         right = false;
+        count = count - 10;
+        health = health - 8;
     }
 }
 if (right == true)
@@ -140,11 +149,14 @@ function checker3()
         if(ans3 == pSet[5])
         {
             right = true;
+            count = count + 3;
         }
 
         else
         {
             right = false;
+            count = count - 10;
+            health = health - 8;
         }
     }
     if (right == true)
@@ -164,4 +176,33 @@ function checker3()
 function newProblems()
 {
     socket.emit("newProb");
+}
+
+function updateName(newname) {
+  document.getElementById('namebar').innerHTML = "Hello " + newname;
+}
+
+var health = 100;
+
+function sethealth(percent) {
+  health = percent;
+}
+
+function settimer(percent) {
+  count = percent;
+}
+var count = 100;  //total count
+var speed = count/1000; //rate at which it decreases
+function countdown() {
+  var x = setInterval(function() {
+    count = count - speed;
+    $('#timer').width(count+"%");
+    $('#timer').html(Math.floor(count + 1) +" \\ 100");
+    $('#healthbar1').width(health +"%");
+    $('#healthbar1').html(health +" \\ 100 HP");
+    if(count < 0){
+        clearInterval(x);
+        console.log("You lose!");
+    }
+  }, 100);
 }

@@ -4,6 +4,7 @@ var socket = require('socket.io');
 var easyNumSet = [];
 var medNumSet = [];
 var hardNumSet = [];
+var boost = 1;
 
 for (var i = -9; i < 10; i++)
 {

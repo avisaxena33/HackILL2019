@@ -27,7 +27,8 @@ var damage_multiplier = 1.5; //damage modifier
 var damage_tick = 1;       //base damage at beginning of the game
 var zone_freq = 10;        //speed up / damage increase frequency in seconds and runtime
 var zone = 1;              // zone number
-
+var boost = 1;
+var boostModifier = .5;
 
 countdown();
 
@@ -98,19 +99,22 @@ function checker()
         if (ans1 == pSet[1])
         {
             right = true;
-            point = point + easy;
+            if(boost != 2.5 && boost != 3)
+            {
+                boost += boostModifier;
+            }
+            point = point + (easy*boost);
         }
 
         else
         {
             right = false;
+            boost = 1;
             point = point - Math.ceil(easy);
             health = health - easy;
 
         }
     }
-
-
 
 
     if (right == true)
@@ -134,12 +138,17 @@ if(!(ans2 == "" || ans2.length == 0 || ans2 == null))
     if (ans2 == pSet[3])
     {
         right = true;
-        point = point + medium;
+        if(boost != 2.5 && boost != 3)
+        {
+            boost += boostModifier;
+        }
+        point = point + (medium*boost);
     }
 
     else
     {
         right = false;
+        boost = 1;
         point = point - Math.ceil(medium/2);
         health = health - medium;
     }
@@ -165,12 +174,17 @@ function checker3()
         if(ans3 == pSet[5])
         {
             right = true;
-            point = point + hard;
+            if(boost != 2.5 && boost != 3)
+            {
+                boost += boostModifier;
+            }
+            point = point + (hard*boost);
         }
 
         else
         {
             right = false;
+            boost = 1;
             point = point - Math.ceil(hard/2);
             health = health - hard;
         }
@@ -191,6 +205,7 @@ function checker3()
 
 function newProblems()
 {
+    console.log(boost);
     socket.emit("newProb");
 }
 

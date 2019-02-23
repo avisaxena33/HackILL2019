@@ -227,12 +227,12 @@ function updateUser() {
   $('#healthbar1').width(health +"%");
   $('#healthbar1').html(health +" \\ 100 HP");
   $('#points').width(point + "%");
-  $('#points').html(point + "");
+  $('#points').html("Points: " + point + "");
 }
 
 function updateTime() {
   $('#timer').width(count+"%");
-  $('#timer').html(Math.ceil(count + 1) +"");
+  $('#timer').html("Zone: " + Math.ceil(count + 1) +"");
 }
 
 function updateCount() {
@@ -262,7 +262,7 @@ function countdown() {
       y = y + 0.1;
     }else{
       $('#timer').width(0 +"%");
-      $('#timer').html(0 + "");
+      $('#timer').html("Zone: " + 0 + "");
     }
     updateUser();
     //will add win condition where you beat an AI

@@ -1,4 +1,10 @@
-var express = require('express')();
+var app = require('express')();
 var http = require('http').Server(app);
-//App Setup
-var app = express();
+
+app.get('/', function(req, res){
+  res.send('<h1>Hello world</h1>');
+});
+
+hattp.listen(3000, function(){
+  console.log('listening on *:3000');
+});

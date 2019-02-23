@@ -241,9 +241,15 @@ function updateCount() {
 }
 
 var y = 1; //couldn't figure out a better way to count
+var rest = false;
 function countdown() {
   var x = setInterval(function() {
-    updateCount();
+    if(y > Math.floor(zone_freq/3)){
+      rest = false;
+    }
+    if(!rest){
+      updateCount();
+    }
     if(count > 0)
     {
       updateTime();
@@ -251,6 +257,7 @@ function countdown() {
         zone = zone + 1;
         y = 1;
         document.getElementById("zone").innerHTML = zone + "";
+        rest = true;
       }
       y = y + 0.1;
     }else{
@@ -258,7 +265,6 @@ function countdown() {
       $('#timer').html(0 + "");
     }
     updateUser();
-
     //will add win condition where you beat an AI
     if(health <= 0){
         clearInterval(x);

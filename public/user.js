@@ -226,12 +226,12 @@ function updateUser() {
   }
   $('#healthbar1').width(health +"%");
   $('#healthbar1').html(health +" \\ 100 HP");
-  $('#points').width(point + "%");
+  $('#points').width(point/zone + "%");
   $('#points').html("Points: " + point + "");
 }
 
 function updateTime() {
-  $('#timer').width(count+"%");
+  $('#timer').width(count/zone +"%");
   $('#timer').html("Zone: " + Math.ceil(count + 1) +"");
 }
 
@@ -242,7 +242,10 @@ function updateCount() {
 
 var y = 1; //couldn't figure out a better way to count
 var rest = false;
+var maxvalue = 10;
 function countdown() {
+  //$('#points').attr("aria-valuemax", maxvalue +"");
+//  $('#timer').attr("aria-valuemax", maxvalue +"");
   var x = setInterval(function() {
     if(y > Math.floor(zone_freq/3)){
       rest = false;
@@ -261,11 +264,13 @@ function countdown() {
       }
       y = y + 0.1;
     }else{
-      $('#timer').width(0 +"%");
+      $('#timer').width(0);
       $('#timer').html("Zone: " + 0 + "");
     }
     updateUser();
     //will add win condition where you beat an AI
+    //couldn't find how to change the max size of progress Bar
+    //if you could modify the max size of the progress that'd be great!
     if(health <= 0){
         clearInterval(x);
         console.log("You lose!");

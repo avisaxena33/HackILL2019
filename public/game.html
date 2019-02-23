@@ -16,6 +16,7 @@
         src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="user.js"></script>
     <!-- Custom styles for this template -->
     <link href="styles.css" rel="stylesheet">
@@ -31,18 +32,18 @@
   </div>
   <!-- Health bar on the top -->
   <div class="progress" style="height: 20px; width: 30%; position: relative; left: 68.3%; top:-5pt;">
-    <div class="progress-bar mfront bg-success" role="progressbar" id="healthbar1" style="width: 100%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">100%</div>
+    <div class="progress-bar mfront bg-success" role="progressbar" id="healthbar1" style="width: 100%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="10">100%</div>
   </div>
   <div class="container">
     <nav class="navbar navbar-dark shadow-sm fixed-bottom navbar-giveFat">
     </nav>
   </div>
   <!-- Bar on bottom -->
-  <div class="progress" style="height: 40px;width: 100%; position: absolute; bottom: 5%;">
-    <div class="progress-bar mfront" role="progressbar" id="points" style="width: 100%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">100%</div>
+  <div class="progress" max="50" style="height: 40px;width: 100%; position: absolute; bottom: 5%;">
+    <div class="progress-bar mfront" role="progressbar" id="points" style="width: 100%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="10">100%</div>
   </div>
-  <div class="progress" style="height: 40px;width: 100%; position: absolute; bottom: 10%;">
-    <div class="progress-bar bg-danger mfront progress-bar-striped progress-bar-animated" role="progressbar" id="timer" style="width: 100%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">100%</div>
+  <div class="progress" max="50" style="height: 40px;width: 100%; position: absolute; bottom: 10%;">
+    <div class="progress-bar bg-danger mfront progress-bar-striped progress-bar-animated" role="progressbar" id="timer" style="width: 100%" aria-valuenow="0" aria-valuemin="0" aria-valuemax= "100">100%</div>
   </div>
 
 

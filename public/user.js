@@ -46,21 +46,18 @@ document.addEventListener("DOMContentLoaded", function()
     {
         checker();
         e.preventDefault();
-        sub1.disabled = true;
     });
 
     sub2.addEventListener("click", function(e)
     {
         checker2();
         e.preventDefault();
-        sub2.disabled = true;
     });
 
     sub3.addEventListener("click", function(e)
     {
         checker3();
         e.preventDefault();
-        sub3.disabled = true;
     });
 });
 
@@ -87,9 +84,7 @@ socket.on("newProblems", function(data)
     ans1 = document.getElementById("answer1").value = "";
     ans2 = document.getElementById("answer2").value = "";
     ans3 = document.getElementById("answer3").value = "";
-    sub1.disabled = false;
-    sub2.disabled = false;
-    sub3.disabled = false;
+
 });
 
 function checker()
@@ -246,12 +241,12 @@ function updateUser() {
   }
   $('#healthbar1').width(health +"%");
   $('#healthbar1').html(health +" \\ 100 HP");
-  $('#points').width(point/(zone/4) + "%");
+  $('#points').width(point + "%");
   $('#points').html("Points: " + point + "");
 }
 
 function updateTime() {
-  $('#timer').width(count/(zone/4) +"%");
+  $('#timer').width(count+"%");
   $('#timer').html("Zone: " + Math.ceil(count + 1) +"");
 }
 
@@ -279,7 +274,6 @@ function countdown() {
       if(Math.floor(y) % zone_freq == 0){
         zone = zone + 1;
         y = 1;
-        document.getElementById("zone").innerHTML = zone + "";
         rest = true;
       }
       y = y + 0.1;

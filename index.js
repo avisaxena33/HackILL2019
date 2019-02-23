@@ -31,11 +31,9 @@ io.on("connection", function(socket)
 
     socket.on("newPlayer", function(data)
     {
-        console.log(data);
         playerName = data;
         genProblem();
-        setTimeout(yeet, 3000);
-         console.log(playerName);
+        setTimeout(yeet, 70);
         function yeet()
         {
             io.sockets.emit("firstSet", playerName);
@@ -48,7 +46,7 @@ io.on("connection", function(socket)
     {
         genProblem();
 
-        setTimeout(bigGay, 3000);
+        setTimeout(bigGay, 1000);
         function bigGay()
         {
             io.sockets.emit("newProblems", pSet);

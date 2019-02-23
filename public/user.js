@@ -43,7 +43,8 @@ document.addEventListener("DOMContentLoaded", function()
 
 socket.on("firstSet", function(data)
 {
-    nametag.innerText = data;
+    console.log(data);
+    nametag.innerHTML = data;
 });
 
 socket.on("firstProblems", function(data)
@@ -64,20 +65,26 @@ socket.on("newProblems", function(data)
 
 function checker()
 {
-    ans1 = document.getElementById("answer1").value;
-    ans2 = document.getElementById("answer2").value;
-    ans3 = document.getElementById("answer3").value;
+    console.log(pSet);
+    ans1 = parseInt(document.getElementById("answer1").value);
+    ans2 = parseInt(document.getElementById("answer2").value);
+    ans3 = parseInt(document.getElementById("answer3").value);
+    console.log(typeof ans1);
+    console.log(typeof ans2);
+    console.log(typeof ans3);
+    console.log(typeof pSet[5]);
+
 
     if (ans1 != null)
     {
         if (ans1 == pSet[1])
         {
-            right = True;
+            right = true;
         }
 
         else
         {
-            right = False;
+            right = false;
         }
     }
 
@@ -85,12 +92,12 @@ function checker()
     {
         if (ans2 == pSet[3])
         {
-            right = True;
+            right = true;
         }
 
         else
         {
-            right = False;
+            right = false;
         }
     }
 
@@ -98,16 +105,16 @@ function checker()
     {
         if(ans3 == pSet[5])
         {
-            right = True;
+            right = true;
         }
 
         else
         {
-            right = False;
+            right = false;
         }
     }
 
-    if (right == True)
+    if (right == true)
     {
         window.alert("You got it right!");
     }
@@ -116,6 +123,7 @@ function checker()
     {
         window.alert("You got it wrong!");
     }
+
 
     setTimeout(newProblems, 3000);
 }

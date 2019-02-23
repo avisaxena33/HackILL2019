@@ -31,10 +31,17 @@ io.on("connection", function(socket)
 
     socket.on("newPlayer", function(data)
     {
+        console.log(data);
         playerName = data;
         genProblem();
-        io.sockets.emit("firstSet", playerName);
-        io.sockets.emit("firstProblems", pSet);
+        setTimeout(yeet, 1000);
+         console.log(playerName);
+        function yeet()
+        {
+            io.sockets.emit("firstSet", playerName);
+            io.sockets.emit("firstProblems", pSet);
+        }
+
     });
 
     socket.on("newProblems", function()
@@ -46,10 +53,11 @@ io.on("connection", function(socket)
 
 function genProblem()
 {
+    pSet = [];
     var op1 =  numSet[Math.floor(Math.random()*(8-0+1)+0)];
-    var op2 =  numset[Math.floor(Math.random()*(8-0+1)+0)];
+    var op2 =  numSet[Math.floor(Math.random()*(8-0+1)+0)];
     var oper = opSet[Math.floor(Math.random()*(3-0+1)+0)];
-    problem1 = op1 + op2 + oper;
+    problem1 = op1 + oper + op2;
 
     if (oper == "X")
     {
@@ -72,9 +80,9 @@ function genProblem()
     }
 
     var op1 =  numSet[Math.floor(Math.random()*(8-0+1)+0)];
-    var op2 =  numset[Math.floor(Math.random()*(8-0+1)+0)];
+    var op2 =  numSet[Math.floor(Math.random()*(8-0+1)+0)];
     var oper = opSet[Math.floor(Math.random()*(3-0+1)+0)];
-    problem2 = op1 + op2 + oper;
+    problem2 = op1 + oper + op2;
 
     if (oper == "X")
     {
@@ -97,9 +105,9 @@ function genProblem()
     }
 
     var op1 =  numSet[Math.floor(Math.random()*(8-0+1)+0)];
-    var op2 =  numset[Math.floor(Math.random()*(8-0+1)+0)];
+    var op2 =  numSet[Math.floor(Math.random()*(8-0+1)+0)];
     var oper = opSet[Math.floor(Math.random()*(3-0+1)+0)];
-    problem3 = op1 + op2 + oper;
+    problem3 = op1 + oper + op2;
 
     if (oper == "X")
     {
@@ -122,4 +130,5 @@ function genProblem()
     }
 
     pSet.push(problem1, answer1, problem2, answer2, problem3, answer3);
+    console.log(pSet);
 }

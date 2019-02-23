@@ -226,12 +226,12 @@ function updateUser() {
   }
   $('#healthbar1').width(health +"%");
   $('#healthbar1').html(health +" \\ 100 HP");
-  $('#points').width(point/zone + "%");
+  $('#points').width(point/(zone/4) + "%");
   $('#points').html("Points: " + point + "");
 }
 
 function updateTime() {
-  $('#timer').width(count/zone +"%");
+  $('#timer').width(count/(zone/4) +"%");
   $('#timer').html("Zone: " + Math.ceil(count + 1) +"");
 }
 
@@ -247,7 +247,7 @@ function countdown() {
   //$('#points').attr("aria-valuemax", maxvalue +"");
 //  $('#timer').attr("aria-valuemax", maxvalue +"");
   var x = setInterval(function() {
-    if(y > Math.floor(zone_freq/3)){
+    if(y > Math.floor(zone_freq/2)){
       rest = false;
     }
     if(!rest){

@@ -76,18 +76,16 @@ function genProblem()
     var op1 =  easyNumSet[Math.floor(Math.random()*(18-0+1)+0)];
     var op2 =  easyNumSet[Math.floor(Math.random()*(18-0+1)+0)];
     var oper = easyOpSet[Math.floor(Math.random()*(1-0+1)+0)];
-    console.log(op1, op2, oper);
     if (oper == "+")
     {
-        answer1 = parseInt(op1) + parseInt(op2);
+        answer1 = op1 + op2;
     }
 
-    else (oper == "-")
+    else
     {
         answer1 = parseInt(op1) - parseInt(op2)
     }
-    console.log(answer1);
-    setTimeout(123);
+
     if (parseInt(op1) < 0)
     {
         op1 = "(" + op1 + ")";
@@ -99,6 +97,8 @@ function genProblem()
     }
 
     problem1 = op1 + oper + op2;
+
+
 
 
     var op1 =  medNumSet[Math.floor(Math.random()*(18-0+1)+0)];

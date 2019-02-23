@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function()
 
 socket.on("firstSet", function(data)
 {
-    nametag.innerHTML = data;
+    nametag.innerHTML = "Hello " + data + "!";
 });
 
 socket.on("firstProblems", function(data)

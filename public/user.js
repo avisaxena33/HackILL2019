@@ -1,5 +1,4 @@
 var socket = io.connect("http://localhost:3000");
-console.log("js file loaded");
 
 var nametag;
 var sub1;
@@ -24,26 +23,28 @@ document.addEventListener("DOMContentLoaded", function()
     ques2 = document.getElementById("q2");
     ques3 = document.getElementById("q3");
 
-    sub1.addEventListener("click", function()
+    sub1.addEventListener("click", function(e)
     {
         checker();
+        e.preventDefault();
     });
 
-    sub2.addEventListener("click", function()
+    sub2.addEventListener("click", function(e)
     {
-        checker();
+        checker2();
+        e.preventDefault();
     });
 
-    sub3.addEventListener("click", function()
+    sub3.addEventListener("click", function(e)
     {
-        checker();
+        checker3();
+        e.preventDefault();
     });
 });
 
 
 socket.on("firstSet", function(data)
 {
-    console.log(data);
     nametag.innerHTML = data;
 });
 
@@ -61,21 +62,20 @@ socket.on("newProblems", function(data)
     ques1.innerHTML = pSet[0]
     ques2.innerHTML = pSet[2]
     ques3.innerHTML = pSet[4]
+    ans1 = document.getElementById("answer1").value = "";
+    ans2 = document.getElementById("answer2").value = "";
+    ans3 = document.getElementById("answer3").value = "";
+
 });
 
 function checker()
 {
-    console.log(pSet);
     ans1 = parseInt(document.getElementById("answer1").value);
-    ans2 = parseInt(document.getElementById("answer2").value);
-    ans3 = parseInt(document.getElementById("answer3").value);
-    console.log(typeof ans1);
-    console.log(typeof ans2);
-    console.log(typeof ans3);
-    console.log(typeof pSet[5]);
 
 
-    if (ans1 != null)
+
+
+    if (!(ans1 == "" || ans1.length == 0 || ans1 == null))
     {
         if (ans1 == pSet[1])
         {
@@ -88,20 +88,54 @@ function checker()
         }
     }
 
-    else if(ans2 != null)
-    {
-        if (ans2 == pSet[3])
-        {
-            right = true;
-        }
 
-        else
-        {
-            right = false;
-        }
+
+
+    if (right == true)
+    {
+        console.log("you got it correct!");
+    }
+
+    else if (right == false)
+    {
+        console.log("you got it wrong!");
+    }
+
+
+    newProblems();
+}
+function checker2()
+{
+ans2 = parseInt(document.getElementById("answer2").value);
+if(!(ans2 == "" || ans2.length == 0 || ans2 == null))
+{
+    if (ans2 == pSet[3])
+    {
+        right = true;
     }
 
     else
+    {
+        right = false;
+    }
+}
+if (right == true)
+{
+    console.log("you got it correct!");
+}
+
+else if (right == false)
+{
+    console.log("you got it wrong!");
+}
+
+    newProblems();
+}
+
+function checker3()
+{
+    ans3 = parseInt(document.getElementById("answer3").value);
+    if (!(ans3 == "" || ans3.length == 0 || ans3 == null))
     {
         if(ans3 == pSet[5])
         {
@@ -113,22 +147,21 @@ function checker()
             right = false;
         }
     }
-
     if (right == true)
     {
-        window.alert("You got it right!");
+        console.log("you got it correct!");
     }
 
-    else
+    else if (right == false)
     {
-        window.alert("You got it wrong!");
+        console.log("you got it wrong!");
     }
 
 
-    setTimeout(newProblems, 3000);
+    newProblems();
 }
 
 function newProblems()
 {
-    socket.emit("newProblems");
+    socket.emit("newProb");
 }

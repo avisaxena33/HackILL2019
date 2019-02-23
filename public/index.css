@@ -1,0 +1,42 @@
+#name {
+  display: inline-block;
+  text-align: center;
+}
+
+input[type="answer"] {
+    width: 200px;
+}
+
+#hackillinois {
+  position: absolute;
+  top:0%;
+  left:92%;
+  height:170px;
+  width:170px;
+}
+
+#outercont {
+  position: absolute;
+	left:50%;
+	top:50%;
+	transform: translateX(-50%)
+	translateY(-50%);
+	text-align: center;
+}
+
+#outercont2 {
+  position: absolute;
+	left:50%;
+	top:60%;
+	transform: translateX(-50%)
+	translateY(-50%);
+}
+
+#headertitle {
+  position: absolute;
+	left:50%;
+	top:40%;
+	transform: translateX(-50%)
+	translateY(-50%);
+  font-size: 200%;
+}

@@ -2,6 +2,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+  <script src="user2.js"></script>
 </head>
 <body>
   <!-- NavBar on the Top -->
@@ -12,8 +17,8 @@
     </nav>
   </div>
   <!-- Health bar on the top -->
-  <div class="progress progress-offset-top" style="height: 20px;">
-    <div class="progress-bar mfront" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+  <div class="progress progress-offset-top" style="height: 40px;">
+    <div class="progress-bar mfront" role="progressbar" id="healthbar1" style="width: 100%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">100%</div>
   </div>
   <!-- Bottom Nav Bar -->
   <div class="container">
@@ -22,8 +27,8 @@
     </nav>
   </div>
   <!-- Bar on bottom -->
-  <div class="progress progress-offset-bot" style="height: 20px;">
-    <div class="progress-bar mfront" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+  <div class="progress progress-offset-bot" style="height: 40px;">
+    <div class="progress-bar mfront" role="progressbar" id="timer" style="width: 100%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">100%</div>
   </div>
   <!-- Place Holder Text -->
   <font size = "10">

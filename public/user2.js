@@ -10,5 +10,5 @@ function sethealth(percent) {
 function settimer(duration) {
   $('#timer').css('width', function(i){
     return $(this).width() + (i * 50);
-});
+  });
 }

@@ -99,7 +99,7 @@ function checker()
         if (ans1 == pSet[1])
         {
             right = true;
-            if(boost != 2.5 && boost != 3)
+            if(boost != 3)
             {
                 boost += boostModifier;
             }
@@ -138,7 +138,7 @@ if(!(ans2 == "" || ans2.length == 0 || ans2 == null))
     if (ans2 == pSet[3])
     {
         right = true;
-        if(boost != 2.5 && boost != 3)
+        if(boost != 3)
         {
             boost += boostModifier;
         }
@@ -174,7 +174,7 @@ function checker3()
         if(ans3 == pSet[5])
         {
             right = true;
-            if(boost != 2.5 && boost != 3)
+            if(boost != 3)
             {
                 boost += boostModifier;
             }

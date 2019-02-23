@@ -253,6 +253,7 @@ function updateTime() {
 function updateCount() {
   var trueSpeed = speed*Math.pow(speed_multiplier, zone);
   count = count + trueSpeed;
+  calculateAI();
 }
 
 var y = 1; //couldn't figure out a better way to count
@@ -290,4 +291,14 @@ function countdown() {
         console.log("You lose!");
     }
   }, 100);
+}
+
+
+function calculateAI() {
+  var delta = point - count;
+  var totalplayers = 100 - count;
+  var behind = Math.max((-0.025*delta + 0.5)*totalplayers,0);
+  var ahead = totalplayers - behind;
+  $('#pbehind').html("Players Behind: " + Math.floor(behind));
+  $('#pahead').html("Players Ahead: " + Math.floor(ahead));
 }

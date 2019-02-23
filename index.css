@@ -1,16 +1,21 @@
-.navbar {
-  overflow: hidden;
-  background-color: #333;
-  position: fixed; /* Set the navbar to fixed position */
-  top: 0; /* Position the navbar at the top of the page */
-  width: 100%; /* Full width */
+.navbar-giveFat{
+  height: 100px;
 }
-.footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: red;
-  color: white;
-  text-align: center;
+
+.progress-offset-top{
+  position: relative;
+  left: 500px;
+  top: 40px;
+  width: 300px;
+}
+
+.progress-offset-bot{
+  position: relative;
+  top: 800px;
+}
+.LogoContainer
+
+
+.mfront {
+  z-index: 1000;
 }

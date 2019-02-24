@@ -6,6 +6,9 @@ var medNumSet = [];
 var hardNumSet = [];
 var boost = 1;
 
+var playerList = [];
+var tempName;
+
 for (var i = -9; i < 10; i++)
 {
     easyNumSet.push(i);
@@ -33,6 +36,7 @@ var pSet = [];
 var app = express();
 
 var playerName;
+var newCounter = false;
 
 var server = app.listen(3000, function(){
   console.log('listening on :3000');
@@ -41,23 +45,29 @@ var server = app.listen(3000, function(){
 var io = socket(server);
 
 app.use(express.static("public"));
-
+var connections = 0;
 
 io.on("connection", function(socket)
 {
     console.log("Made Socket Connection", socket.id);
+    if (newCounter == true)
+    {
+        connections++;
+        newCounter = false;
+        player = {};
+        player.name = tempName;
+        player.id = socket.id;
+        genProblem();
+        player.problems = pSet;
+        playerList.push(player);
+        io.to(socket.id).emit("firstSet", player);
+        io.to(socket.id).emit("firstProblems", player);
+    }
 
     socket.on("newPlayer", function(data)
     {
-        playerName = data;
-        genProblem();
-        setTimeout(yeet, 200);
-        function yeet()
-        {
-            io.sockets.emit("firstSet", playerName);
-            io.sockets.emit("firstProblems", pSet);
-        }
-
+        tempName = data;
+        newCounter = true;
     });
 
     socket.on("newProb", function()
@@ -66,9 +76,36 @@ io.on("connection", function(socket)
         setTimeout(bigGay, 1000);
         function bigGay()
         {
-            io.sockets.emit("newProblems", pSet);
+            io.to(socket.id).emit("newProblems", pSet);
         }
     });
+
+    socket.on("startGameAll", function()
+    {
+        io.sockets.emit("startGameAll", connections);
+    });
+
+    socket.on("lifeCount", function(data){
+        connections = data[0];
+        var sid = data[1];
+        playerList.forEach(function(person, i) {
+            if (person.id == sid) {
+                playerList.splice(i, 1);
+                console.log(playerList);
+            }
+
+        })
+
+        if (connections == 1) {
+            console.log("we found winner");
+            io.to(playerList[0].id).emit("winner");
+        } else {
+            socket.emit("lifeCount", connections);
+        }
+
+
+    });
+
 });
 
 function genProblem()

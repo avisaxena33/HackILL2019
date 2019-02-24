@@ -96,7 +96,7 @@ io.on("connection", function(socket)
 
         })
 
-        if (connections == 1) {
+        if (playerList.length == 1) {
             console.log("we found winner");
             io.to(playerList[0].id).emit("winner");
         } else {

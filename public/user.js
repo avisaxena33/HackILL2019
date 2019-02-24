@@ -328,3 +328,35 @@ function calculateAI() {
   $('#pbehind').html("Players Behind: " + Math.floor(behind));
   $('#pahead').html("Players Ahead: " + Math.floor(ahead));
 }
+//items here;
+document.addEventListener("DOMContentLoaded", function()
+{
+    i1 = document.getElementById("item1");
+    i2 = document.getElementById("item2");
+    i3 = document.getElementById("item3");
+    i4 = document.getElementById("submit3");
+
+    i1.addEventListener("click", function(e)
+    {
+        sethealth(health + 50);
+        e.preventDefault();
+    });
+
+    i2.addEventListener("click", function(e)
+    {
+        count = count - 30;
+        e.preventDefault();
+    });
+
+    i3.addEventListener("click", function(e)
+    {
+        boost = 2;
+        e.preventDefault();
+    });
+
+    i4.addEventListener("click", function(e)
+    {
+        newProblems();
+        e.preventDefault();
+    });
+});

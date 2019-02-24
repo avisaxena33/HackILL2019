@@ -260,7 +260,7 @@ function zoneTimer() {
     document.getElementById('zone').innerHTML = "Circle is closing: " + (Math.floor(z));
   }else{
     if(!rest){
-      var t = (zone_timer - (Math.ceil(y - (zone_timer)))) + 1;
+      var t = (Math.ceil(zone_freq - y - 0.5));
       if(t <= 0){
         t = 0;
       }

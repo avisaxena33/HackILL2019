@@ -1,6 +1,6 @@
 # Educational Battle Royale
 Inspired by the growing popuarity of battle royales, our team decided to put together an educational battle royale-esque game. Relying on the entertaining aspect of games and the intense atmosphere the battle royale genre creates, our project aims to bring a fun factor into studying, instilling . Our end goal is to have young kids develop greater math skills through a mix of competition and play. 
-# Getting Started
+## Getting Started
 
 Prerequisites
 1. node.js

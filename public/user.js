@@ -46,18 +46,21 @@ document.addEventListener("DOMContentLoaded", function()
     {
         checker();
         e.preventDefault();
+        sub1.disabled = true;
     });
 
     sub2.addEventListener("click", function(e)
     {
         checker2();
         e.preventDefault();
+        sub2.disabled = true;
     });
 
     sub3.addEventListener("click", function(e)
     {
         checker3();
         e.preventDefault();
+        sub3.disabled = true;
     });
 });
 
@@ -84,7 +87,9 @@ socket.on("newProblems", function(data)
     ans1 = document.getElementById("answer1").value = "";
     ans2 = document.getElementById("answer2").value = "";
     ans3 = document.getElementById("answer3").value = "";
-
+    sub1.disabled = false;
+    sub2.disabled = false;
+    sub3.disabled = false;
 });
 
 function checker()
@@ -329,34 +334,58 @@ function calculateAI() {
   $('#pahead').html("Players Ahead: " + Math.floor(ahead));
 }
 //items here;
+var c1 = 1;
+var c2 = 1;
+var c3 = 1;
+var c4 = 1;
 document.addEventListener("DOMContentLoaded", function()
 {
     i1 = document.getElementById("item1");
     i2 = document.getElementById("item2");
     i3 = document.getElementById("item3");
-    i4 = document.getElementById("submit3");
-
+    i4 = document.getElementById("item4");
+    document.getElementById("item1").innerHTML = "Health Pack: " + c1;
+    document.getElementById("item2").innerHTML = "Enlarge Circle: " + c2;
+    document.getElementById("item3").innerHTML = "Booster: " + c3;
+    document.getElementById("item4").innerHTML = "Scramble: " + c4;
     i1.addEventListener("click", function(e)
     {
+      if(c1 > 0){
         sethealth(health + 50);
         e.preventDefault();
+        c1--;
+        document.getElementById("item1").innerHTML = "Health Pack: " + c1;
+      }
     });
 
     i2.addEventListener("click", function(e)
     {
+      if(c2 > 0){
         count = count - 30;
         e.preventDefault();
+        c2--;
+        document.getElementById("item2").innerHTML = "Enlarge Circle: " + c2;
+      }
+
     });
 
     i3.addEventListener("click", function(e)
     {
+      if(c3 > 0){
         boost = 2;
         e.preventDefault();
+        c3--;
+        document.getElementById("item3").innerHTML = "Booster: " + c3;
+      }
     });
 
     i4.addEventListener("click", function(e)
     {
+      if(c4 > 0){
         newProblems();
         e.preventDefault();
+        c4--;
+        document.getElementById("item4").innerHTML = "Scramble: " + c4;
+      }
     });
 });

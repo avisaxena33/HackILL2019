@@ -1,7 +1,7 @@
 # Math Jam
-Inspired by the growing popuarity of battle royales, our team decided to put together an educational battle royale-esque game. Relying on the entertaining aspect of games and the intense atmosphere the battle royale genre creates, our project aims to bring a fun factor into studying. Our end goal is to have young kids develop greater math skills through a mix of competition and play, targeting kids who are academically disinterested. 
+Inspired by the growing popuarity of battle royales, our team decided to put together an educational battle royale-esque game. Relying on the entertaining aspect of games and the intense atmosphere the battle royale genre creates, our project aims to bring a fun factor into studying. Our end goal is to have kids, especially those who are academically disinterested, develop greater math skills through a mix of competition and play.
 ## Getting Started
-To begin playing, you must install 2 frameworks and a library. Follow the intstructions listed below to start playing Math Jam.
+To begin playing, you must install 2 frameworks and a library. Follow the instructions listed below to start playing Math Jam.
 ### Prerequisites
 1. node.js
 2. express.js

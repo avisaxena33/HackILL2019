@@ -22,10 +22,10 @@ var hard = 8;     //hard problem value
 var medium = 5;    //medium problem value
 var easy = 3;      //easy problem value
 var speed = 0.1;   //base speed, 0.1 increase per tenth of a second
-var speed_multiplier = 1.2; //speed increase multiplier
+var speed_multiplier = 1.5; //speed increase multiplier
 var damage_multiplier = 1.5; //damage modifier
 var damage_tick = 1;       //base damage at beginning of the game
-var zone_freq = 10;        //speed up / damage increase frequency in seconds and runtime
+var zone_freq = 20;        //speed up / damage increase frequency in seconds and runtime
 var zone = 1;              // zone number
 var boost = 1;
 var boostModifier = .5;
@@ -255,15 +255,36 @@ function updateCount() {
   count = count + trueSpeed;
   calculateAI();
 }
-
+function zoneTimer() {
+  if(count < 0){
+    document.getElementById('zone').innerHTML = "Circle is closing: " + (Math.floor(z));
+  }else{
+    if(!rest){
+      var t = (zone_timer - (Math.ceil(y - (zone_timer)))) + 1;
+      if(t <= 0){
+        t = 0;
+      }
+      document.getElementById('zone').innerHTML = "Circle is closing: " + (t - 1);
+    }else if(rest){
+      var t = (zone_timer - (Math.ceil(y)));
+      if(t <= 0){
+        t = 0;
+      }
+      document.getElementById('zone').innerHTML = "Circle is going to close in: " + t;
+    }
+  }
+}
+var zone_timer = zone_freq/2;
+var z = zone_freq - count;
 var y = 1; //couldn't figure out a better way to count
 var rest = false;
 var maxvalue = 10;
 function countdown() {
+
   //$('#points').attr("aria-valuemax", maxvalue +"");
 //  $('#timer').attr("aria-valuemax", maxvalue +"");
   var x = setInterval(function() {
-    if(y > Math.floor(zone_freq/2)){
+    if(y >= Math.floor(zone_freq/2)){
       rest = false;
     }
     if(!rest){
@@ -272,15 +293,20 @@ function countdown() {
     if(count > 0)
     {
       updateTime();
-      if(Math.floor(y) % zone_freq == 0){
+      if(Math.ceil(y) % zone_freq == 0){
         zone = zone + 1;
         y = 1;
         rest = true;
+        zoneTimer();
       }
       y = y + 0.1;
     }else{
       $('#timer').width(0);
       $('#timer').html("Zone: " + 0 + "");
+    }
+    zoneTimer();
+    if(zone == 1){
+      z = z - 0.1;
     }
     updateUser();
     //will add win condition where you beat an AI
@@ -297,8 +323,8 @@ function countdown() {
 function calculateAI() {
   var delta = point - count;
   var totalplayers = 100 - count;
-  var behind = Math.max((-0.025*delta + 0.5)*totalplayers,0);
-  var ahead = totalplayers - behind;
+  var behind = Math.max((0.01*delta + 0.5)*totalplayers,0);
+  var ahead = Math.max(totalplayers - behind, 0);
   $('#pbehind').html("Players Behind: " + Math.floor(behind));
   $('#pahead').html("Players Ahead: " + Math.floor(ahead));
 }

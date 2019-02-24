@@ -103,6 +103,9 @@ function checker()
     {
         if (ans1 == pSet[1])
         {
+          if(giveloot == 1){
+            selectloot(Math.floor(Math.random()*4))
+          }
             right = true;
             if(boost != 3)
             {
@@ -119,6 +122,9 @@ function checker()
             health = health - easy;
 
         }
+        document.getElementById("card1").style.background = "white";
+        document.getElementById("card2").style.background = "white";
+        document.getElementById("card3").style.background = "white";
     }
 
 
@@ -143,6 +149,9 @@ if(!(ans2 == "" || ans2.length == 0 || ans2 == null))
     if (ans2 == pSet[3])
     {
         right = true;
+        if(giveloot == 2){
+          selectloot(Math.floor(Math.random()*4))
+        }
         if(boost != 3)
         {
             boost += boostModifier;
@@ -157,6 +166,9 @@ if(!(ans2 == "" || ans2.length == 0 || ans2 == null))
         point = point - Math.ceil(medium/2);
         health = health - medium;
     }
+    document.getElementById("card1").style.background = "white";
+    document.getElementById("card2").style.background = "white";
+    document.getElementById("card3").style.background = "white";
 }
 if (right == true)
 {
@@ -178,6 +190,9 @@ function checker3()
     {
         if(ans3 == pSet[5])
         {
+          if(giveloot == 3){
+            selectloot(Math.floor(Math.random()*4))
+          }
             right = true;
             if(boost != 3)
             {
@@ -193,6 +208,9 @@ function checker3()
             point = point - Math.ceil(hard/2);
             health = health - hard;
         }
+        document.getElementById("card1").style.background = "white";
+        document.getElementById("card2").style.background = "white";
+        document.getElementById("card3").style.background = "white";
     }
     if (right == true)
     {
@@ -210,14 +228,49 @@ function checker3()
 
 function newProblems()
 {
-    console.log(boost);
+    var lootchooser = Math.floor(Math.random() * 50);
+    if(lootchooser == 5){
+      setloot(1);
+    }else if(lootchooser > 10 && lootchooser < 17){
+      setloot(2);
+    }else if(lootchooser > 37){
+      setloot(3);
+    }
+    console.log(lootchooser);
     socket.emit("newProb");
 }
 
 function updateName(newname) {
   document.getElementById('namebar').innerHTML = "Hello " + newname;
 }
-
+var giveloot = 0;
+function selectloot(thing){
+  if(thing == 1){
+    c1++;
+    document.getElementById("item1").innerHTML = "Health Pack: " + c1;
+  }else if(thing == 2){
+    c2++;
+    document.getElementById("item2").innerHTML = "Enlarge Circle: " + c2;
+  }else if(thing == 3){
+    c3++;
+    document.getElementById("item3").innerHTML = "Booster: " + c3;
+  }else{
+    c4++;
+    document.getElementById("item4").innerHTML = "Scramble: " + c4;
+  }
+}
+function setloot(question){
+  if(question == 1){
+    document.getElementById("card1").style.background = "purple";
+    giveloot = 1;
+  }else if(question == 2){
+    document.getElementById("card2").style.background = "purple";
+    giveloot = 2;
+  }else if(question == 3){
+    document.getElementById("card3").style.background = "purple";
+    giveloot = 3;
+  }
+}
 
 function sethealth(percent) {
   health = percent;

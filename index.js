@@ -38,7 +38,7 @@ var app = express();
 var playerName;
 var newCounter = false;
 
-var server = app.listen(3000, function(){
+var server = app.listen(process.env.PORT, function(){
   console.log('listening on :3000');
 });
 

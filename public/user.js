@@ -1,5 +1,4 @@
 var socket = io.connect("http://localhost:3000");
-
 var nametag;
 var sub1;
 var sub2;
@@ -12,7 +11,7 @@ var ans1;
 var ans2;
 var ans3;
 var right;
-
+var starter;
 //will move to game.js once I figure it out
 
 var health = 100; //starting healthbar
@@ -29,8 +28,8 @@ var zone_freq = 10;        //speed up / damage increase frequency in seconds and
 var zone = 1;              // zone number
 var boost = 1;
 var boostModifier = .5;
-
-countdown();
+var connections;
+//countdown();
 
 document.addEventListener("DOMContentLoaded", function()
 {
@@ -41,6 +40,7 @@ document.addEventListener("DOMContentLoaded", function()
     ques1 = document.getElementById("q1");
     ques2 = document.getElementById("q2");
     ques3 = document.getElementById("q3");
+    starter = document.getElementById("start");
 
     sub1.addEventListener("click", function(e)
     {
@@ -59,17 +59,22 @@ document.addEventListener("DOMContentLoaded", function()
         checker3();
         e.preventDefault();
     });
-});
 
+    starter.addEventListener("click", function(e)
+    {
+        e.preventDefault();
+        socket.emit("startGameAll");
+    });
+});
 
 socket.on("firstSet", function(data)
 {
-    nametag.innerHTML = "Hello " + data + "!";
+    nametag.innerHTML = "Hello " + data.name + "!";
 });
 
 socket.on("firstProblems", function(data)
 {
-    pSet = data.slice();
+    pSet = data.problems.slice();
     ques1.innerHTML = pSet[0];
     ques2.innerHTML = pSet[2];
     ques3.innerHTML = pSet[4];
@@ -85,6 +90,21 @@ socket.on("newProblems", function(data)
     ans2 = document.getElementById("answer2").value = "";
     ans3 = document.getElementById("answer3").value = "";
 
+});
+
+socket.on("startGameAll", function(data)
+{
+    connections = data;
+    countdown();
+});
+
+socket.on("lifeCount", function(data)
+{
+    connections = data;
+});
+
+socket.on("winner", function() {
+    document.location.href ="win.html";
 });
 
 function checker()
@@ -206,7 +226,7 @@ function checker3()
 function newProblems()
 {
     console.log(boost);
-    socket.emit("newProb");
+    socket.emit("newProb", socket.id);
 }
 
 function updateName(newname) {
@@ -238,6 +258,11 @@ function updateUser() {
   }
   if(health < 0){
     health = 0;
+    connections--;
+    var dataarr = [];
+    dataarr.push(connections, socket.id);
+    socket.emit("lifeCount", dataarr);
+    document.location.href = 'lose.html';
   }
   $('#healthbar1').width(health +"%");
   $('#healthbar1').html(health +" \\ 100 HP");
